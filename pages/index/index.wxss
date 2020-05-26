@@ -1,0 +1,26 @@
+/**index.wxss**/
+
+.nav {
+  background-color: white;
+  color: #353535;
+  position: fixed;
+  bottom: 30rpx;
+  width: 100%;
+  border-top: solid 1rpx;
+  padding-top: 30rpx;
+}
+.nav-content {
+  height: 100%;
+}
+.dic-con, .know-con, .contact-con {
+  display: inline-table;
+  width: 33%;
+  text-align: center;
+}
+mp-tabbar{
+  position: fixed;
+  bottom:0;
+  width: 100%;
+  left: 0;
+  right: 0;
+}

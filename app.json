@@ -1,0 +1,33 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/dict/dict",
+    "pages/about/about"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#353535",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle":"black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "手册",
+      "iconPath": "./images/cat_default.png",
+      "selectedIconPath": "./images/cat_active.png"
+    }, {
+      "pagePath": "pages/dict/dict",
+      "text": "科普",
+      "iconPath": "./images/book_default.png",
+      "selectedIconPath": "./images/book_active.png"
+    },{
+      "pagePath": "pages/about/about",
+      "text": "关于",
+      "iconPath": "./images/about_default.png",
+      "selectedIconPath": "./images/about_active.png"
+    }]
+  }
+}
