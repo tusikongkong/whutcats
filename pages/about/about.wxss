@@ -1,26 +1,37 @@
-/**index.wxss**/
+/**about.wxss**/
+@import "../../weui.wxss";
 
-.nav {
-  background-color: white;
-  color: #353535;
-  position: fixed;
-  bottom: 30rpx;
+.contact{
+  width:100%;
+}
+.mydetails{
+  margin: 30rpx 60rpx 30rpx 60rpx;
+}
+
+image{
+  width: 150rpx;
+  height: 150rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+.myname{
+  margin-left: 30rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+/* 联系客服样式 */
+.contact-btn{
   width: 100%;
-  border-top: solid 1rpx;
-  padding-top: 30rpx;
-}
-.nav-content {
-  height: 100%;
-}
-.dic-con, .know-con, .contact-con {
-  display: inline-table;
-  width: 33%;
-  text-align: center;
-}
-mp-tabbar{
-  position: fixed;
-  bottom:0;
+  bottom: 0;
   width: 100%;
-  left: 0;
-  right: 0;
+  position: fixed;
 }
+.contactme{
+  font-size: 30rpx;
+  color: #576b95;
+
+}
+button:after{
+  border:none;
+}
+

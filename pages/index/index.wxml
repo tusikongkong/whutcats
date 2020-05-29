@@ -1,7 +1,68 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="nav-content">
- 
+  <view class="weui-search-bar {{inputShowed ? 'weui-search-bar_focusing' : ''}}" id="searchBar">
+			<form class="weui-search-bar__form">
+				<view class="weui-search-bar__box">
+					<i class="weui-icon-search"></i>
+            <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" confirm-type="search"/>
+            <span class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput"></span>
+				</view>
+				<label class="weui-search-bar__label" bindtap="showInput">
+					<i class="weui-icon-search"></i>
+                    <span class="weui-search-bar__text">搜索</span>
+				</label>
+			</form>
+      <view class="weui-search-bar__cancel-btn" bindtap="hideInput">取消</view>
+		</view>
+  <view class="campus">
+     <radio-group bindchange="radioChange">
+        <label class="weui-check__label" wx:for="{{items}}" wx:key="index">
+          <radio value="{{item.value}}" checked="true"/>
+          <text>{{item.name}}</text>
+        </label>
+      </radio-group>
   </view>
- 
+  <view class="bottom-container">
+    <view class="cats-container"
+    wx:for="{{catarray}}" wx:key="index">
+      <view class="cat-avatar"
+      bindtap="showcat" data-name="{{item.name}}">
+        <image src="../../images/about_active.png"></image>
+      </view>
+      <view class="cat-name">
+        <text class="name">{{item.name}}</text>
+      </view>
+      <view class="cat-details">
+        <text class="tags {{sterilization=='未绝育'?'noactive':'active'}}"
+        >{{sterilization}}</text>
+        <text class="tags {{deworming?'active':''}}"
+        >{{deworming}}</text>
+        <text class="tags {{vaccine?'active':''}}"
+        >{{vaccine}}</text>
+        <text class="intro">{{introduction}}</text>
+      </view>
+    </view>
+  </view>
+  <!-- <view class="bulletins">
+    <text class="bulletin" wx:for="{{bulletins}}"
+    wx:key="index" style="color:{{item.color}}">{{item.text}}</text>
+  </view> -->
+  <view class="fly-con">
+    <text class="fly" bindtap="openIOS1">(*ˉ︶ˉ*)看看我</text>
+  </view>
+   <view class="fadeIn" wx:if="{{iosDialog1}}">
+        <view class="weui-mask"></view>
+        <view class="weui-dialog">
+            <!-- <view class="weui-dialog__hd"><strong class="weui-dialog__title">弹窗标题</strong></view> -->
+            <view class="bulletins">
+              <text class="bulletin" wx:for="{{bulletins}}"
+              wx:key="index" style="color:{{item.color}}">{{item.text}}
+              </text>
+            </view>
+            <view class="weui-dialog__ft">
+                <a class="weui-dialog__btn weui-dialog__btn_primary" bindtap="close">关闭</a>
+            </view>
+        </view>
+    </view>
+
 </view>

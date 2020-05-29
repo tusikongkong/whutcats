@@ -1,2 +1,8 @@
-/**index.wxss**/
+/**dict.wxss**/
+@import "../../weui.wxss";
 
+.home{
+  height: 70rpx;
+  width: 70rpx;
+  vertical-align: middle;
+}

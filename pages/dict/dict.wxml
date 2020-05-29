@@ -1,7 +1,22 @@
-<!--index.wxml-->
+<!--dict.wxml-->
 <view class="container">
-  <view class="nav-content"></view>
-  <view class="nav">
-   
-  </view>
+  <view class="page" data-weui-theme="{{theme}}">
+    <view class="page__bd">
+        <view class="weui-article">
+          <view class="weui-article__h1">
+          <image class="home" src="../../images/home.png"></image>
+          猫咪二三事</view>
+          <view class="weui-article__section">
+              <!-- <view class="weui-article__h2">性情</view> -->
+              <view class="weui-article__section"
+              wx:for="{{articles}}" wx:key="index">
+                  <view class="weui-article__h2">{{item.title}}</view>
+                  <view class="weui-article__p">{{item.content}}</view>
+              </view>
+            </view>
+        </view>
+    </view>
+</view>
+
+  
 </view>

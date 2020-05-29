@@ -1,0 +1,31 @@
+<!--cat.wxml-->
+<view class="container">
+  <view class="cat-con">
+    <view class="cat-message">
+      <view class="cat-avatar">
+        <image src="{{details.avatar}}" class="logo"></image>
+      </view>
+      <view class="cat-name">
+        <text class="name">{{catname}}</text>
+      </view>
+      <view class="cat-details">
+        <image class="sex"
+        src="{{details.sex=='girl'?'../../images/girl.png':'../../images/boy.png'}}"></image>
+      </view>
+    </view>
+    <view class="cat-picture">
+      <image src="{{details.pic}}" mode="aspectFit"
+      class="big"></image>
+    </view>
+    <view class="details">
+      <view class="detail" wx:for="{{details.others}}">
+        <text class="top">{{item.up}}</text>
+        <text class="down">{{item.down}}</text>
+      </view>
+      <view class="longintro">
+        <text class="top">介绍</text>
+        <text class="down">{{details.introduction}}</text>
+      </view>
+    </view>
+  </view>
+</view>
