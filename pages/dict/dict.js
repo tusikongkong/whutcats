@@ -1,20 +1,31 @@
 // dict.js
+const app = getApp()
 
 Page({
   data: {
-    articles: [{
-      "title": "阿巴",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniamquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat."
-    },{
-      "title": "阿巴阿巴",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniamquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat."
-    },{
-      "title": "阿巴阿巴",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniamquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat."
-    }]
+    artist: ""
   },
   //事件处理函数
-
+  onLoad:function(){
+    wx.showLoading({
+      title: '在写了...',
+    })
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 700)
+    var that = this
+    wx.request({
+      url: app.globalData.URL+'article',
+      header: {
+        'Accept':'application/x..v1+json'
+      },
+      success: function(res){
+        that.setData({
+          "artlist": res.data
+        })
+      }
+    })
+  }
 
 
 })

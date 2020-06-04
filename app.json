@@ -33,5 +33,6 @@
   },
   "useExtendedLib": {
     "weui": true
-  }
+  },
+  "enablePullDownRefresh": true
 }

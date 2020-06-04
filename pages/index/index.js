@@ -3,47 +3,28 @@
 const app = getApp()
 
 Page({
+  mixins: [require('../../mixin/themeChanged')],
   data: {
+    selectcampus: "",
     iosDialog1: false,
     inputShowed: false,
     inputVal: "",
+    search: "",
+    issearch: "",
+    nextpage: "",
+    nomore: true,
     campus: ["所有","东院","西院","鉴湖","南湖","余区"],
-    catarray: [{
-      name: "空空"
-    },{
-      name: "点点"
-    },{
-      name: "馆长"
-    },{
-      name: "无名氏"
-    },{
-      name: "馆长"
-    },{
-      name: "无名氏"
-    }],
-    "name": "空",
-    "sterilization": "未绝育",
-    "deworming": "未驱虫",
-    "vaccine": "无疫苗",
-    "introduction": "话多",
+    catslist: "",
+    bulletinlist: "",
     items: [
-      {value: 'all', name: '总',checked: 'true'},
-      {value: 'dong', name: '东'},
-      {value: 'xi', name: '西'},
-      {value: 'jian', name: '鉴'},
-      {value: 'nan', name: '南'},
-      {value: 'yu', name: '余'}
+      {value: '', name: '总', checked: true},
+      {value: '东院', name: '东', checked: false},
+      {value: '西院', name: '西',checked: false},
+      {value: '鉴湖', name: '鉴',checked: false},
+      {value: '南湖', name: '南',checked: false},
+      {value: '余区', name: '余',checked: false}
     ],
-    bulletins: [{
-      "text": "就这就这就这就这就这就这",
-      "color": "rgb(53,53,53)"
-    },{
-      "text": "确实确实确实确实确实确实",
-      "color": "rgb(9,187,7)" 
-    },{
-      "text": "有一说一有一说一有一说一有一说一",
-      "color": "rgb(87,107,149)"
-    }]
+    isHideLoadMore: false,
   },
   //事件处理函数
   showcat: function (e) {
@@ -54,34 +35,78 @@ Page({
     // console.log(e.currentTarget.dataset.name)
   },
   radioChange(e) {
-    console.log('radio发生change事件，携带value值为：', e.detail.value)
+    // console.log('radio发生change事件，携带value值为：', e.detail.value)
     const items = this.data.items
-    const values = e.detail.value
-    for (let i = 0, lenI = items.length; i < lenI; ++i) {
-      items[i].checked = false
-      for (let j = 0, lenJ = values.length; j < lenJ; ++j) {
-        if (items[i].value === values[j]) {
-          items[i].checked = true
-          break
-        }
-      }
+    for (let i = 0, len = items.length; i < len; ++i) {
+      items[i].checked = items[i].value === e.detail.value
     }
 
     this.setData({
-      items
+      "selectcampus": e.detail.value
+    })
+    var that = this
+    wx.request({
+      url: app.globalData.URL+'cats',
+      data: {
+        "campus": that.__data__.selectcampus
+      },
+      headers: {
+        'Accept':'application/x..v1+json'
+      },
+      success: function(res){
+        that.setData({
+          "catslist": res.data.data,
+          "nextpage": res.data.meta.pagination.links.next
+        })
+      }
     })
   },
   onLoad() {
     this.setData({
-        search: this.search.bind(this)
+      search: this.search.bind(this)
+    })
+    // wx.showLoading({
+    //   title: '猫猫在路上啦',
+    // })
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 700)
+    var that=this;
+    // console.log(that.__data__.selectcampus)
+    wx.request({
+      url: app.globalData.URL+'cats',
+      data: {
+        "campus": that.__data__.selectcampus
+      },
+      headers: {
+        'Accept':'application/x..v1+json'
+      },
+      success: function(res){
+        that.setData({
+          "catslist": res.data.data,
+          "nextpage": res.data.meta.pagination.links.next
+        })
+        console.log(res.data.data)
+      }
+    }),
+    wx.request({
+      url: app.globalData.URL+'bulletin',
+      headers: {
+        'Accept':'application/x..v1+json'
+      },
+      success: function(res){
+        that.setData({
+          "bulletinlist": res.data
+        })
+      }
     })
   },
   search: function (value) {
-      return new Promise((resolve, reject) => {
-          setTimeout(() => {
-              resolve([{text: '搜索结果', value: 1}, {text: '搜索结果2', value: 2}])
-          }, 200)
-      })
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve([{text: '结果', value: 1}, {text: '结果2', value: 2}])
+        }, 200)
+    })
   },
   selectResult: function (e) {
       console.log('select result', e.detail)
@@ -103,36 +128,88 @@ Page({
       });
   },
   inputTyping: function (e) {
-      this.setData({
-          inputVal: e.detail.value
-      });
+    this.setData({
+      "inputVal": e.detail.value
+    })
+    var that = this
+    // console.log(app.globalData.URL+'search?name='+e.detail.value)
+    wx.request({
+      url: app.globalData.URL+'search',
+      data: {
+        'name': e.detail.value
+      },
+      header: {
+        'Accept':'application/x..v1+json'
+      },
+      success:function(res){
+        // console.log(res.data == "")
+        if(res.data == ""){
+          that.setData({
+            "search": {"name":"啊哦，暂未收录。联系客服提交猫咪详细信息吧~"},
+            "issearch": "0"
+          }) 
+        }else{
+          that.setData({
+            "search": res.data[0],
+            "issearch": "1"
+          })
+        }
+        
+      }
+    })
   },
   close: function () {
     this.setData({
-        iosDialog1: false,
-        iosDialog2: false,
-        androidDialog1: false,
-        androidDialog2: false,
+        iosDialog1: false
     })
-},
-openIOS1: function() {
+  },
+  openIOS1: function() {
     this.setData({
         iosDialog1: true
     });
-},
-openIOS2: function() {
-    this.setData({
-        iosDialog2: true
-    });
-},
-openAndroid1: function() {
-    this.setData({
-        androidDialog1: true
-    });
-},
-openAndroid2: function() {
-    this.setData({
-        androidDialog2: true
-    });
-},
+  },
+  // 触底加载更多
+  onReachBottom:function(){
+    // console.log('加载更多')
+    var that = this
+    wx.request({
+      url: that.__data__.nextpage,
+      data: {
+        "campus": that.__data__.selectcampus
+      },
+      header: {
+        'Accept': 'application/x..v1+json'
+      },
+      success:function(res){
+        that.setData({
+          "nextpage": res.data.meta.pagination.links.next
+        })
+        for(var i in res.data.data){
+          that.__data__.catslist.push(res.data.data[i])
+        }
+        that.setData({
+          "catslist": that.__data__.catslist
+        })
+        // console.log(res.data.data.length < 7)
+        if(res.data.data.length < 8){
+          that.setData({
+            "nomore": ""
+          })
+        }
+      }
+    })
+    setTimeout(()=>{
+      this.setData({
+        "isHideLoadMore": true
+      })
+    },1000)
+    if(this.data.nomore == true){
+      this.setData({
+        "isHideLoadMore": false
+      })
+    }
+  }
+  // onPageScroll:function(e){
+  //   console.log(e.scrollTop)
+  // }
 })

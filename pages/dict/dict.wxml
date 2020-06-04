@@ -9,7 +9,7 @@
           <view class="weui-article__section">
               <!-- <view class="weui-article__h2">性情</view> -->
               <view class="weui-article__section"
-              wx:for="{{articles}}" wx:key="index">
+              wx:for="{{artlist}}" wx:key="index">
                   <view class="weui-article__h2">{{item.title}}</view>
                   <view class="weui-article__p">{{item.content}}</view>
               </view>

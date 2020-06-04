@@ -1,18 +1,11 @@
 //about.js
+const app = getApp()
 
 Page({
   data: {
-    myavatar: "../../images/about_active.png",
-    mymessage: [{
-      "title": "mail",
-      "content": "dithyrambuskong@gmail.com",
-      "src": "../../images/mail.png"
-    },{
-      "title": "邮箱",
-      "content": "马房山校区东院",
-      "src": "../../images/address.png"
-    }],
-    wanttosay: "阿巴阿巴阿巴阿巴阿巴阿巴阿巴阿巴阿巴阿巴阿巴阿巴阿巴阿巴阿巴阿巴阿巴阿巴阿巴阿巴阿巴阿巴阿巴阿巴"
+    abouts: "",
+    contacts: "",
+    "avatar": "../../images/about_active.png"
   },
   //事件处理函数
   copy:function(e){
@@ -27,6 +20,38 @@ Page({
             })
 
           }
+        })
+      }
+    })
+  },
+  onLoad:function(){
+    wx.showLoading({
+      title: '你好呀...',
+    })
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 700)
+    var that = this
+    wx.request({
+      url: app.globalData.URL+'about',
+      header: {
+        'Accept': 'application/x..v1+json'
+      },
+      success:function(res){
+        that.setData({
+          "abouts": res.data[0]
+        })
+      }
+    })
+    wx.request({
+      url: app.globalData.URL+'contact',
+      header: {
+        'Accept': 'application/x..v1+json'
+      },
+      success:function(res){
+        console.log(res.data.data)
+        that.setData({
+          "contacts": res.data.data
         })
       }
     })

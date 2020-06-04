@@ -106,7 +106,7 @@ radio-group{
 /* 公告样式 */
 .bulletins{
   width: 85%;
-  margin: 50rpx;
+  margin: 10rpx 50rpx;
   border-radius: 20rpx;
   text-align: left;
 }
@@ -138,4 +138,50 @@ radio-group{
 .page{background-color:var(--weui-BG-2)}
 .weui-dialog__btn{
   font-weight: 500;
+}
+.searchbar-result{
+  width: 100%;
+}
+.weui-dialog__hd{
+  padding: 30rpx 24rpx 0rpx 24rpx;
+}
+.weui-dialog__title{
+  font-weight: 500;
+}
+.search {
+  display: inline;
+}
+.issearch{
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.page{background-color:var(--weui-BG-2)}
+
+.weui-loading {
+  margin: 0 5px;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-animation: weuiLoading 1s steps(12, end) infinite;
+  animation: weuiLoading 1s steps(12, end) infinite;
+  background-size: 100%;
+}
+.weui-loadmore {
+  width: 65%;
+  margin: 1.5em auto;
+  line-height: 1.6em;
+  font-size: 14px;
+  text-align: center;
+}
+.weui-loadmore__tips {
+  display: inline-block;
+  vertical-align: middle;
+}
+.nomore{
+  background-color: #f6f7f8;
+}
+.weui-cell_access{
+  padding: 5px;
 }

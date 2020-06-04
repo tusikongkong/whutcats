@@ -34,6 +34,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    URL: 'http://whutcats.test/api/'
   }
 })
