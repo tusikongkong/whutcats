@@ -34,4 +34,7 @@ image{
 button:after{
   border:none;
 }
+.weui-cell__bd{
+  font-size: 30rpx;
+}
 

@@ -19,31 +19,31 @@
     </view>
     <view class="details">
       <view class="detail">
-        <text class="top">所在校区</text>
+        <text class="top">🏫所在校区</text>
         <text class="down">{{message.campus}}</text>
       </view>
       <view class="detail">
-        <text class="top">毛色外貌</text>
+        <text class="top">🐈毛色外貌</text>
         <text class="down">{{message.show}}</text>
       </view>
       <view class="detail">
-        <text class="top">性格</text>
+        <text class="top">😊性格</text>
         <text class="down">{{message.charactor}}</text>
       </view>
       <view class="detail">
-        <text class="top">疫苗情况</text>
+        <text class="top">💉疫苗情况</text>
         <text class="down">{{message.vaccine}}</text>
       </view>
       <view class="detail">
-        <text class="top">绝育情况</text>
+        <text class="top">🏥绝育情况</text>
         <text class="down">{{message.sterilization}}</text>
       </view>
       <view class="detail">
-        <text class="top">驱虫情况</text>
+        <text class="top">💊驱虫情况</text>
         <text class="down">{{message.deworming}}</text>
       </view>
       <view class="longintro">
-        <text class="top">介绍</text>
+        <text class="top">📖介绍</text>
         <text class="down">{{message.introduction}}</text>
       </view>
     </view>

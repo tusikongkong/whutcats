@@ -35,6 +35,6 @@ App({
   },
   globalData: {
     userInfo: null,
-    URL: 'http://whutcats.test/api/'
+    DOMAIN: 'https://whutcats.tusikong.cn/'
   }
 })

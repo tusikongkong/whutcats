@@ -10,8 +10,9 @@
               <!-- <view class="weui-article__h2">性情</view> -->
               <view class="weui-article__section"
               wx:for="{{artlist}}" wx:key="index">
-                  <view class="weui-article__h2">{{item.title}}</view>
-                  <view class="weui-article__p">{{item.content}}</view>
+                  <!-- <view class="weui-article__h2">{{item.title}}</view> -->
+                  <view class="weui-article__p">
+                  <rich-text nodes='{{item.content}}'></rich-text></view>
               </view>
             </view>
         </view>

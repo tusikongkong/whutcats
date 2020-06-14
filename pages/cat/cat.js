@@ -10,24 +10,38 @@ Page({
     "issex": ""
   },
   //事件处理函数
+  onShareAppMessage:function(){
+    return {
+      title: '武理喵喵 - '+this.data.message.name,
+      path: 'pages/cat/cat',
+      success: (res) => {
+        // 分享成功
+      },
+      fail: (res) => {
+        // 分享失败
+      }
+    }
+  },
   onLoad:function(option){
+    wx.showShareMenu({
+      withShareTicket: true
+    })
     // console.log(option.name)
     wx.showLoading({
-      title: '稍等一小会儿',
+      title: '加载图片中...',
     })
-    setTimeout(function () {
-      wx.hideLoading()
-    }, 700)
+
     this.setData({
       "catindex": option.name
     })
     var that = this
     wx.request({
-      url: app.globalData.URL+'cat/'+this.data.catindex,
+      url: app.globalData.DOMAIN+'api/cat/'+this.data.catindex,
       headers: {
         'Accept':'application/x..v1+json'
       },
       success: function(res){
+        wx.hideLoading()
         // console.log(res.data[0])
         const promise = new Promise((resolve,reject)=>{
           that.setData({

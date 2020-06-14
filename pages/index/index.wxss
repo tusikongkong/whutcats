@@ -45,7 +45,7 @@ mp-searchbar{
   width: 15%;
   vertical-align: middle;
 }
-image{
+.cathead{
   display: inline-block;
   width: 120rpx;
   height: 120rpx;
@@ -123,17 +123,30 @@ radio-group{
   position: fixed;
   bottom: 150rpx;
   right: 20rpx;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
   z-index: 9;
   /* background-color: rgb(136,136,136,0.8); */
+  background-color: white;
+  box-shadow: 0rpx 10rpx 10rpx 1rpx rgba(0,0,0,0.1);
+  text-align: center;
 }
 .fly{
   /* width: 70rpx; */
   font-size: 30rpx;
   color:white;
   color: rgb(87,107,149);
+}
+.imgcon{
+  display: flex;
+  margin-top: 10rpx;
+  width: 100%;
+}
+.buicon{
+  width: 50rpx;
+  height: 50rpx;
+  margin:auto;
 }
 .page{background-color:var(--weui-BG-2)}
 .weui-dialog__btn{
@@ -150,6 +163,7 @@ radio-group{
 }
 .search {
   display: inline;
+  color: #576b95;
 }
 .issearch{
   width: 80rpx;

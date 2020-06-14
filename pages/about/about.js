@@ -8,6 +8,9 @@ Page({
     "avatar": "../../images/about_active.png"
   },
   //事件处理函数
+  onPullDownRefresh: function () {
+    this.onLoad(); //重新加载onLoad()
+  },
   copy:function(e){
     var message = e.currentTarget.dataset.message;
     wx.setClipboardData({
@@ -16,7 +19,7 @@ Page({
         wx.getClipboardData({
           success (res) {
             wx.showToast({
-              title: 'GET~粘贴看看',
+              title: '复制成功',
             })
 
           }
@@ -24,32 +27,48 @@ Page({
       }
     })
   },
+  onShareAppMessage:function(){
+    return {
+      title: '关于作者',
+      path: 'pages/about/about',
+      imageUrl: app.globalData.DOMAIN+'upload/images/mypic.png',
+      success: (res) => {
+        // 分享成功
+      },
+      fail: (res) => {
+        // 分享失败
+      }
+    }
+  },
   onLoad:function(){
-    wx.showLoading({
-      title: '你好呀...',
+    wx.showShareMenu({
+            withShareTicket: true
     })
-    setTimeout(function () {
-      wx.hideLoading()
-    }, 700)
+    wx.stopPullDownRefresh()
+    wx.showLoading({
+      title: '稍等一下...',
+    })
+
     var that = this
     wx.request({
-      url: app.globalData.URL+'about',
+      url: app.globalData.DOMAIN+'api/about',
       header: {
         'Accept': 'application/x..v1+json'
       },
       success:function(res){
+        wx.hideLoading()
         that.setData({
           "abouts": res.data[0]
         })
       }
     })
     wx.request({
-      url: app.globalData.URL+'contact',
+      url: app.globalData.DOMAIN+'api/contact',
       header: {
         'Accept': 'application/x..v1+json'
       },
       success:function(res){
-        console.log(res.data.data)
+        // console.log(res.data.data)
         that.setData({
           "contacts": res.data.data
         })

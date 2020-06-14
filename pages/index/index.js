@@ -24,9 +24,12 @@ Page({
       {value: '南湖', name: '南',checked: false},
       {value: '余区', name: '余',checked: false}
     ],
-    isHideLoadMore: false,
+    isHideLoadMore: true,
   },
   //事件处理函数
+  onPullDownRefresh: function () {
+    this.onLoad(); //重新加载onLoad()
+  },
   showcat: function (e) {
     var catname = e.currentTarget.dataset.name
     wx.navigateTo({
@@ -35,6 +38,9 @@ Page({
     // console.log(e.currentTarget.dataset.name)
   },
   radioChange(e) {
+    wx.showLoading({
+      title: '加载'+e.detail.value+'猫咪中',
+    })
     // console.log('radio发生change事件，携带value值为：', e.detail.value)
     const items = this.data.items
     for (let i = 0, len = items.length; i < len; ++i) {
@@ -46,7 +52,7 @@ Page({
     })
     var that = this
     wx.request({
-      url: app.globalData.URL+'cats',
+      url: app.globalData.DOMAIN+'api/cats',
       data: {
         "campus": that.__data__.selectcampus
       },
@@ -54,6 +60,7 @@ Page({
         'Accept':'application/x..v1+json'
       },
       success: function(res){
+        wx.hideLoading()
         that.setData({
           "catslist": res.data.data,
           "nextpage": res.data.meta.pagination.links.next
@@ -61,20 +68,35 @@ Page({
       }
     })
   },
+  onShareAppMessage:function(){
+    return {
+      title: '武理喵喵',
+      path: 'pages/index/index',
+      imageUrl: app.globalData.DOMAIN+'upload/images/indexpic.png',
+      success: (res) => {
+        // 分享成功
+      },
+      fail: (res) => {
+        // 分享失败
+      }
+    }
+  },
   onLoad() {
+    wx.showShareMenu({
+      withShareTicket: true
+    })
+    // console.log('停止下拉刷新')
+    wx.stopPullDownRefresh()
     this.setData({
       search: this.search.bind(this)
     })
-    // wx.showLoading({
-    //   title: '猫猫在路上啦',
-    // })
-    setTimeout(function () {
-      wx.hideLoading()
-    }, 700)
+    wx.showLoading({
+      title: '加载全体猫咪中',
+    })
     var that=this;
     // console.log(that.__data__.selectcampus)
     wx.request({
-      url: app.globalData.URL+'cats',
+      url: app.globalData.DOMAIN+'api/cats',
       data: {
         "campus": that.__data__.selectcampus
       },
@@ -82,15 +104,16 @@ Page({
         'Accept':'application/x..v1+json'
       },
       success: function(res){
+        wx.hideLoading()
         that.setData({
           "catslist": res.data.data,
           "nextpage": res.data.meta.pagination.links.next
         })
-        console.log(res.data.data)
+        // console.log(res.data.data)
       }
     }),
     wx.request({
-      url: app.globalData.URL+'bulletin',
+      url: app.globalData.DOMAIN+'api/bulletin',
       headers: {
         'Accept':'application/x..v1+json'
       },
@@ -134,7 +157,7 @@ Page({
     var that = this
     // console.log(app.globalData.URL+'search?name='+e.detail.value)
     wx.request({
-      url: app.globalData.URL+'search',
+      url: app.globalData.DOMAIN+'api/search',
       data: {
         'name': e.detail.value
       },
@@ -171,7 +194,12 @@ Page({
   // 触底加载更多
   onReachBottom:function(){
     // console.log('加载更多')
+    this.setData({
+      "isHideLoadMore": false,
+      "nomore": true
+    })
     var that = this
+    
     wx.request({
       url: that.__data__.nextpage,
       data: {
@@ -182,32 +210,28 @@ Page({
       },
       success:function(res){
         that.setData({
-          "nextpage": res.data.meta.pagination.links.next
+          "nextpage": res.data.meta.pagination.links.next,
+          "isHideLoadMore": true
         })
-        for(var i in res.data.data){
-          that.__data__.catslist.push(res.data.data[i])
-        }
+        that.__data__.catslist = that.__data__.catslist.concat(res.data.data)
+        
         that.setData({
           "catslist": that.__data__.catslist
         })
-        // console.log(res.data.data.length < 7)
+
         if(res.data.data.length < 8){
           that.setData({
-            "nomore": ""
+            "nomore": false
           })
         }
+      },
+      complete:function(){
+        that.setData({
+          "isHideLoadMore": true,
+          "nomore": false
+        })
       }
     })
-    setTimeout(()=>{
-      this.setData({
-        "isHideLoadMore": true
-      })
-    },1000)
-    if(this.data.nomore == true){
-      this.setData({
-        "isHideLoadMore": false
-      })
-    }
   }
   // onPageScroll:function(e){
   //   console.log(e.scrollTop)

@@ -20,10 +20,9 @@
     wx:if="{{inputVal.length > 0}}">
 			<view class="weui-cell weui-cell_active weui-cell_access">
 				<view class="weui-cell__bd weui-cell_primary">
-					<view class="search">{{search.name}}</view>
-          <image src="../../images/cat.png" class="issearch"
-          wx:if="{{issearch == 1}}" bindtap="showcat"
-          data-name="{{search.id}}"></image>
+					<view class="search" bindtap="showcat"
+          wx:if="{{issearch == 1}}"
+          data-name="{{search.id}}">{{search.name}}</view>
 				</view>
 			</view>
 		</view>
@@ -41,11 +40,11 @@
   <!-- 猫咪列表 -->
   <view class="bottom-container">
     <view class="cats-container"
-    wx:for="{{catslist}}" wx:key="index">
-      <view class="cat-avatar"
-      bindtap="showcat" data-name="{{item.id}}">
-        <image alt="../../images/about_active.png"
-        src="{{item.pic}}" mode="aspectFill"></image>
+    wx:for="{{catslist}}" wx:key="index"
+    bindtap="showcat" data-name="{{item.id}}">
+      <view class="cat-avatar">
+        <image src="{{item.head}}" mode="aspectFill"
+        class="cathead"></image>
       </view>
       <view class="cat-name">
         <text class="name">{{item.name}}</text>
@@ -63,8 +62,12 @@
   </view>
 
 <!-- 公告栏 -->
-  <view class="fly-con">
-    <text class="fly" bindtap="openIOS1">(*ˉ︶ˉ*)看看我</text>
+  <view class="fly-con" bindtap="openIOS1">
+    <view class='imgcon'>
+      <image src="../../images/anoun.png" class="buicon"></image>
+    </view>
+    
+    <text class="fly">公告</text>
   </view>
   <view class="fadeIn" wx:if="{{iosDialog1}}">
     <view class="weui-mask"></view>
@@ -88,6 +91,6 @@
 </view>
 <view class="weui-loadmore weui-loadmore_line" hidden="{{nomore}}">
   <text class="weui-loadmore__tips nomore"
-  style="background-color: #f6f7f8;">真没有了！</text>
+  style="background-color: #f6f7f8;">没有更多啦</text>
 </view>
 </view>

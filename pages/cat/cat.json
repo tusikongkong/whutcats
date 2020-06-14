@@ -1,9 +1,9 @@
 {
   "usingComponents": {},
   
-  "backgroundTextStyle":"light",
+  "backgroundTextStyle":"dark",
   "navigationBarBackgroundColor": "#353535",
-  "navigationBarTitleText": "武理喵喵 Beta1",
+  "navigationBarTitleText": "武理喵喵",
   "navigationBarTextStyle":"white"
   
 }

@@ -5,7 +5,7 @@
       <image src="{{avatar}}"></image>
       <text class="myname">{{abouts.name}}</text>
     </view>
-    <mp-cells ext-class="my-cells" title="联系我 / 点击复制 ヽ(´o｀">
+    <mp-cells ext-class="my-cells" title="点击复制">
       <mp-cell value="{{item.title}}" footer="{{item.content}}"
       data-message="{{item.content}}" bindtap="copy"
       wx:for="{{contacts}}" wx:key="index">
@@ -13,7 +13,8 @@
       </mp-cell>
     </mp-cells>
     <mp-cells ext-class="my-cells" title="一些想说的">
-      <mp-cell value="{{abouts.wanttosay}}" footer="" style="color:rgb(127,127,127)"></mp-cell>  
+      <mp-cell value="{{abouts.wanttosay}}" footer="" style="color:rgb(127,127,127)"></mp-cell>
+      <mp-cell value="{{abouts.wanttwo}}" footer="" style="color:rgb(127,127,127)"></mp-cell> 
     </mp-cells>
     <button open-type="contact" class="contact-btn">
       <text class="contactme">联系客服</text>
