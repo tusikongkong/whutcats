@@ -62,7 +62,7 @@
   </view>
 
 <!-- 公告栏 -->
-  <view class="fly-con" bindtap="openIOS1">
+  <!-- <view class="fly-con" bindtap="openIOS1">
     <view class='imgcon'>
       <image src="../../images/anoun.png" class="buicon"></image>
     </view>
@@ -82,7 +82,7 @@
           <a class="weui-dialog__btn weui-dialog__btn_primary" bindtap="close">关闭</a>
       </view>
     </view>
-  </view>
+  </view> -->
 
 <!-- 加载更多 -->
 <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
